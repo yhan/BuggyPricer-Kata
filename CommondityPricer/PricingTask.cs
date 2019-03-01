@@ -4,19 +4,26 @@ namespace CommondityPricer
 {
     public class PricingTask
     {
-        private readonly MarketDataRetriever _marketDataRetriever;
+        private readonly IProvideMarketData _marketDataProvider;
+        private readonly IPublishPrice _pricePublisherAdapter;
 
-        public PricingTask()
+        public PricingTask() : this(new MarketDataRetrieverAdatper(), new PricePublisherAdapter())
         {
-            _marketDataRetriever = new MarketDataRetriever();
+        }
+
+        public PricingTask(IProvideMarketData marketDataProvider, IPublishPrice pricePublisherAdapter)
+        {
+            _marketDataProvider = marketDataProvider;
+            _pricePublisherAdapter = pricePublisherAdapter;
         }
 
         public void PriceAndPublish(string underlying)
         {
-            double yesterdayPrice = _marketDataRetriever.GetClose(underlying);
+            double yesterdayPrice = _marketDataProvider.GetClose(underlying);
+
             //FIXME en fait, ça devrait être + 2 et non pas + 1
-            double todayPrice = yesterdayPrice + 1;
-            PricePublisher.Instance.Publish(todayPrice);
+            double todayPrice = yesterdayPrice + 1 + 1;
+            _pricePublisherAdapter.Publish(todayPrice);
         }
     }
 }

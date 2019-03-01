@@ -49,7 +49,9 @@
     <Compile Include="PricingTask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ThirdParties\MarketDataRetriever.cs" />
+    <Compile Include="ThirdParties\MarketDataRetrieverAdatper.cs" />
     <Compile Include="ThirdParties\PricePublisher.cs" />
+    <Compile Include="ThirdParties\PricePublisherAdapter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
